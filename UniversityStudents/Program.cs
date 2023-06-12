@@ -1,3 +1,5 @@
+using UniversityStudents.Extensions;
+
 /*
   The builder variable of the type WebApplicationBuilder is created
   The WebApplicationBuilder is responsible of 4 main things:
@@ -9,6 +11,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//services from the ServiceExtension class
+builder.Services.ConfigureCors();
+builder.Services.ConfigureIISIntegration();
 
 builder.Services.AddControllers();
 
