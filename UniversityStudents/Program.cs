@@ -18,14 +18,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
 
+/* No View, No Page needed for an API */
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
+if(app.Environment.IsDevelopment())
+    {
+    app.UseDeveloperExceptionPage();
+    }
+else
+    {
+    /* This will add the Strict-Transport-Security header */
+        app.UseHsts();
+    }
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+/* Forward proxy headers to the current request 
+   Important during application deployment
+ */
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.All
