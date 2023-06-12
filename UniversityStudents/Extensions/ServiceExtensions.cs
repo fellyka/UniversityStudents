@@ -11,6 +11,13 @@
                   .AllowAnyMethod()
                   .AllowAnyHeader());
             });
-        }
+        }//end of ConfigureCors() static method
+
+        public static void ConfigureIISIntegration(this IServiceCollection services) =>
+            services.Configure<IISOptions>(options =>
+            {
+
+            });
+        //end of ConfigureIISIntegration() static method
     }
 }
