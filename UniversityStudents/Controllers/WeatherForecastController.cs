@@ -1,3 +1,4 @@
+using Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UniversityStudents.Controllers
@@ -11,9 +12,10 @@ namespace UniversityStudents.Controllers
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        //private readonly ILogger<WeatherForecastController> _logger;
+        private ILoggerManager _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILoggerManager logger)
         {
             _logger = logger;
         }
@@ -28,6 +30,17 @@ namespace UniversityStudents.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet]
+        public IEnumerable<string> GetLogging()
+        {
+            _logger.LogInfo("Here is INFO message from our values controller");
+            _logger.LogDebug("Here is DEBUG message from our values controller");
+            _logger.LogWarn("Here is WARN message from our values controller");
+            _logger.LogError("Here is an ERROR message from our values controller");
+
+            return new string[] { "Value1", "Value2" };
         }
     }
 }

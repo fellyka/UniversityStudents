@@ -1,4 +1,7 @@
-﻿namespace UniversityStudents.Extensions
+﻿using Contracts;
+using LoggerService;
+
+namespace UniversityStudents.Extensions
 {
     public static class ServiceExtensions
     {
@@ -19,5 +22,8 @@
 
             });
         //end of ConfigureIISIntegration() static method
+
+        public static void ConfigureLoggerService(this IServiceCollection services) =>
+            services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 }
